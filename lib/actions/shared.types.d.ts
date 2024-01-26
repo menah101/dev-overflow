@@ -1,6 +1,37 @@
 import { IUser } from "@/database/user.model";
 import { Schema } from "mongoose";
 
+export interface ViewQuestionParams {
+  questionId: string;
+  userId: string | undefined;
+}
+
+export interface JobFilterParams {
+  query: string;
+  page: string;
+}
+
+export interface CreateAnswerParams {
+  content: string;
+  question: string;
+  author: string;
+  path: string;
+}
+
+export interface GetAnswerParams {
+  questionId: string;
+  sortBy?: string;
+  page?: number;
+  pageSize?: number;
+}
+
+export interface GetQuestionsByIdParams {
+  tagId: string;
+  page?: number;
+  pageSize?: number;
+  searchQuery?: string;
+}
+
 export interface GetQuestionsParams {
   page?: number;
   pageSize?: number;
@@ -15,19 +46,63 @@ export interface CreateQuestionParams {
   path: string;
 }
 
-export interface GetQuestionById {
+export interface GetQuestionByIdParams {
   questionId: string;
 }
 
 export interface QuestionVoteParams {
   questionId: string;
   userId: string;
-  hasupVote: boolean;
+  hasupVoted: boolean;
   hasdownVoted: boolean;
-  path: string
+  path: string;
+}
+
+export interface AnswerVoteParams {
+  answerId: string;
+  userId: string;
+  hasupVoted: boolean;
+  hasdownVoted: boolean;
+  path: string;
 }
 
 export interface DeleteQuestionParams {
   questionId: string;
   path: string;
+}
+
+export interface GetUserByIdParams {
+  userId: string;
+}
+
+export interface GetAllUsersParams {
+  page?: number;
+  pageSize?: number;
+  filters?: string;
+  searchQuery?: string;
+}
+
+export interface UpdateUsersParams {
+  clerkId: string;
+  updateData: Partial<IUser>;
+  path: string;
+}
+
+export interface ToggleSaveQuestionParams {
+  userId: string;
+  questionId: string;
+  path: string;
+}
+
+export interface GetTopInteractedTagsParams {
+  userId: string;
+  limit?: number;
+}
+
+export interface GetSavedQuestionsParams {
+  clerkId: string;
+  page?: number;
+  pageSize?: number;
+  filter?: string;
+  searchQuery?: string;
 }

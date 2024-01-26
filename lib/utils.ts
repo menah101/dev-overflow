@@ -1,8 +1,8 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
- 
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export const getTimestamp = (createdAt: Date): string => {
@@ -12,29 +12,29 @@ export const getTimestamp = (createdAt: Date): string => {
   let interval = Math.floor(seconds / 31536000);
 
   if (interval >= 1) {
-    return `${interval} year${interval === 1 ? '' : 's'} ago`;
+    return `${interval} year${interval === 1 ? "" : "s"} ago`;
   }
   interval = Math.floor(seconds / 2592000);
   if (interval >= 1) {
-    return `${interval} month${interval === 1 ? '' : 's'} ago`;
+    return `${interval} month${interval === 1 ? "" : "s"} ago`;
   }
   interval = Math.floor(seconds / 86400);
   if (interval >= 1) {
-    return `${interval} day${interval === 1 ? '' : 's'} ago`;
+    return `${interval} day${interval === 1 ? "" : "s"} ago`;
   }
   interval = Math.floor(seconds / 3600);
   if (interval >= 1) {
-    return `${interval} hour${interval === 1 ? '' : 's'} ago`;
+    return `${interval} hour${interval === 1 ? "" : "s"} ago`;
   }
   interval = Math.floor(seconds / 60);
   if (interval >= 1) {
-    return `${interval} minute${interval === 1 ? '' : 's'} ago`;
+    return `${interval} minute${interval === 1 ? "" : "s"} ago`;
   }
-  return `${Math.floor(seconds)} second${seconds === 1 ? '' : 's'} ago`;
+  return `${Math.floor(seconds)} second${seconds === 1 ? "" : "s"} ago`;
 };
 
 export const formatAndDivideNumber = (num: number): string => {
-  if(num >= 1000000) {
+  if (num >= 1000000) {
     const formattedNum = (num / 1000000).toFixed(1);
     return `${formattedNum}M`;
   } else if (num >= 1000) {
@@ -43,4 +43,13 @@ export const formatAndDivideNumber = (num: number): string => {
   } else {
     return num.toString();
   }
-}
+};
+
+export const getJoinedDate = (date: Date): string => {
+  const month = date.toLocaleString("default", { month: "long" });
+  const year = date.getFullYear();
+
+  const joinedDate = `${month} ${year}`;
+
+  return joinedDate;
+};

@@ -11,7 +11,7 @@ export interface IUser extends Document {
   location?: string;
   portfolioWebsite?: string;
   reputation?: number;
-  saved: Schema.Types.ObjectId[];
+  saved?: Schema.Types.ObjectId[];
   joinedAt: Date;
 }
 

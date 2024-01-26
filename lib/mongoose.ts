@@ -1,9 +1,7 @@
 import mongoose from "mongoose";
 
+// eslint-disable-next-line no-unused-vars
 let isConnected: boolean = false;
-
-console.log(isConnected);
-
 export const connectToDatabase  = async () => {
   mongoose.set('strictQuery', true)
 
