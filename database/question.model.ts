@@ -3,11 +3,11 @@ import { Schema, models, model, Document } from "mongoose";
 export interface IQuestion extends Document {
   title: string;
   content: string;
-  tags: Schema.Types.ObjectId[];
+  tags: Schema.Types.ObjectId[] | any;
   views: number;
-  upvotes: Schema.Types.ObjectId[];
+  upvotes: Schema.Types.ObjectId[] | any;
   downvotes: Schema.Types.ObjectId[];
-  author: Schema.Types.ObjectId;
+  author: Schema.Types.ObjectId | any;
   answers: Schema.Types.ObjectId[];
   createdAt: Date;
 }
