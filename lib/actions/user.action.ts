@@ -10,6 +10,7 @@ import {
   GetUserByIdParams,
   GetUserStatsParams,
   ToggleSaveQuestionParams,
+  UpdateUsersParams,
 } from "./shared.types";
 import Tag from "@/database/tag.model";
 import { FilterQuery } from "mongoose";
@@ -41,7 +42,7 @@ export async function createUser(userData: any) {
   }
 }
 
-export async function updateUser(params: any) {
+export async function updateUser(params: UpdateUsersParams) {
   try {
     connectToDatabase();
 

@@ -44,15 +44,15 @@ const Home = async () => {
         {questions.length > 0 ? (
           questions.map((question) => (
             <QuestionCard
-              key={question._id}
-              _id={question._id}
-              title={question.title}
-              tags={question.tags}
-              author={question.author}
-              upvotes={question.upvotes}
-              views={question.views}
-              answers={question.answers}
-              createdAt={question.createdAt}
+              key={question?._id}
+              _id={question?._id}
+              title={question?.title}
+              tags={question?.tags}
+              author={question?.author}
+              upvotes={question?.upvotes}
+              views={question?.views}
+              answers={question?.answers}
+              createdAt={question?.createdAt}
             />
           ))
         ) : (

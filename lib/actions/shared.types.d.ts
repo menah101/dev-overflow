@@ -1,6 +1,13 @@
 import { IUser } from "@/database/user.model";
 import { Schema } from "mongoose";
 
+export interface EditQuestionParams {
+  questionId: string;
+  title: string
+  content: string
+  path: string;
+}
+
 export interface GetUserStatsParams {
   userId: string;
   page?: number;
@@ -74,6 +81,11 @@ export interface AnswerVoteParams {
 
 export interface DeleteQuestionParams {
   questionId: string;
+  path: string;
+}
+
+export interface DeleteAnswerParams {
+  answerId: string;
   path: string;
 }
 

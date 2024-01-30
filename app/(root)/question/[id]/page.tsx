@@ -67,7 +67,7 @@ const Page = async ({ params, searchParams }: any) => {
         <Metric
           imgUrl="/assets/icons/eye.svg"
           alt="Upvotes"
-          value={formatAndDivideNumber(result.views)}
+          value={formatAndDivideNumber(result?.views)}
           title=" Views"
           textStyles="small-medium text-dark400_light800"
         />
@@ -77,20 +77,20 @@ const Page = async ({ params, searchParams }: any) => {
 
       <div className="mt-8 flex flex-wrap gap-2">
         {result.tags.map((tag: any) => (
-          <RenderTag key={tag._id} _id={tag._id} name={tag.name} showCount={false} />
+          <RenderTag key={tag?._id} _id={tag?._id} name={tag?.name} showCount={false} />
         ))}
       </div>
 
       <AllAnswer
-        questionId={result._id}
-        userId={mongoUser._id}
-        totalAnswers={result.answers.length}
+        questionId={result?._id}
+        userId={mongoUser?._id}
+        totalAnswers={result?.answers.length}
       />
 
       <Answer
-        question={result.content}
-        questionId={JSON.stringify(result._id)}
-        authorId={JSON.stringify(mongoUser._id)}
+        question={result?.content}
+        questionId={JSON.stringify(result?._id)}
+        authorId={JSON.stringify(mongoUser?._id)}
       />
     </>
   );
