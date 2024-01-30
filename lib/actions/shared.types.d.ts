@@ -49,6 +49,7 @@ export interface GetQuestionsParams {
   page?: number;
   pageSize?: number;
   searchQuery?: string;
+  filter?: string
 }
 
 export interface CreateQuestionParams {
@@ -96,7 +97,7 @@ export interface GetUserByIdParams {
 export interface GetAllUsersParams {
   page?: number;
   pageSize?: number;
-  filters?: string;
+  filter?: string;
   searchQuery?: string;
 }
 

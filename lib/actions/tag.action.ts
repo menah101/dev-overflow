@@ -29,7 +29,35 @@ export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
 export async function getAllTags(params: any) {
   try {
     connectToDatabase();
-    const tags = await Tag.find({});
+    const { searchQuery, filter } = params;
+
+    const query: FilterQuery<typeof Tag> = {};
+
+    if (searchQuery) {
+      query.$or = [{ name: { $regex: new RegExp(searchQuery, "i") } }];
+    }
+
+    let sortOptions = {};
+
+    switch (filter) {
+      case "popular":
+        sortOptions = { question: 1 };
+        break;
+      case "recent":
+        sortOptions = { createdAt: -1 };
+        break;
+      case "name":
+        sortOptions = { name: 1 };
+        break;
+      case "old":
+        sortOptions = { createdAt: -1 };
+        break;
+
+      default:
+        break;
+    }
+
+    const tags = await Tag.find(query).sort(sortOptions);
 
     return { tags };
   } catch (error) {
@@ -42,9 +70,9 @@ export async function getQuestionByTagId(params: GetQuestionsByIdParams) {
   try {
     connectToDatabase();
 
-    const { tagId, searchQuery } = params
+    const { tagId, searchQuery } = params;
 
-    const tagFilter: FilterQuery<ITag> = {_id: tagId}
+    const tagFilter: FilterQuery<ITag> = { _id: tagId };
     const tag = await Tag.findOne(tagFilter).populate({
       path: "questions",
       model: Question,
@@ -65,11 +93,25 @@ export async function getQuestionByTagId(params: GetQuestionsByIdParams) {
     const questions = tag.questions;
 
     return { tagTitle: tag.name, questions };
-
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
 
+export async function getTopPopularTags() {
+  try {
+    connectToDatabase();
 
+    const popularTags = await Tag.aggregate([
+      { $project: { name: 1, numberOfQuestions: { $size: "$questions" } } },
+      { $sort: { numberOfQuestions: -1 } },
+      { $limit: 5 },
+    ]);
+
+    return popularTags;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

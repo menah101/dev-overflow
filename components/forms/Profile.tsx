@@ -19,13 +19,13 @@ interface Props {
 const Profile = ({ clerkId, user }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const parsedUser = JSON.parse(user);
-  const router = useRouter()
-  const pathname = usePathname()
+  const router = useRouter();
+  const pathname = usePathname();
 
   const form = useForm<z.infer<typeof ProfileSchema>>({
     resolver: zodResolver(ProfileSchema),
     defaultValues: {
-      name: parsedUser.name || '',
+      name: parsedUser.name || "",
       username: parsedUser.username || "",
       portfolioWebsite: parsedUser.portfolioWebsite || "",
       location: parsedUser.location || "",
@@ -34,7 +34,7 @@ const Profile = ({ clerkId, user }: Props) => {
   });
 
   const onSubmit = async (values: z.infer<typeof ProfileSchema>) => {
-    setIsSubmitting(true)
+    setIsSubmitting(true);
 
     try {
       await updateUser({
@@ -44,15 +44,15 @@ const Profile = ({ clerkId, user }: Props) => {
           username: values.username,
           portfolioWebsite: values.portfolioWebsite,
           location: values.location,
-          bio: values.bio
+          bio: values.bio,
         },
-        path: pathname
-      })
-      router.back()
+        path: pathname,
+      });
+      router.back();
     } catch (error) {
-        console.log(error);
+      console.log(error);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
   };
 
@@ -120,7 +120,7 @@ const Profile = ({ clerkId, user }: Props) => {
           )}
         />
 
-<FormField
+        <FormField
           control={form.control}
           name="bio"
           render={({ field }) => (
@@ -145,7 +145,6 @@ const Profile = ({ clerkId, user }: Props) => {
             {isSubmitting ? "Saving..." : "Save"}
           </Button>
         </div>
-
       </form>
     </Form>
   );

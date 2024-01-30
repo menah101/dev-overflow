@@ -5,10 +5,14 @@ import LocalSearchBar from "@/components/shared/search/LocalSearchBar";
 import { getAllUsers } from "@/lib/actions/user.action";
 import Link from "next/link";
 import UserCard from "@/components/cards/UserCard";
+import { SearchParamsProps } from "@/types";
 
-const Page = async () => {
+const Page = async ({ searchParams }: SearchParamsProps) => {
 
-  const result = await getAllUsers({})
+  const result = await getAllUsers({
+    searchQuery: searchParams.q,
+    filter: searchParams.filter
+  })
 
   return (
     <>
@@ -26,7 +30,6 @@ const Page = async () => {
         <Filter
           filters={UserFilters}
           otherClasses="min-h-[56px] sm:min-w-[170px]"
-          containerClasses="hidden max-md:flex"
         />
 
       </div>

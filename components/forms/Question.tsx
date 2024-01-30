@@ -30,15 +30,15 @@ const Question = ({type, mongoUser, questionDetails}: Props) => {
   const router = useRouter();
   const pathName = usePathname();
 
-  const parsedQuestionDetails = JSON.parse(questionDetails || '')
-  const groupedTags = parsedQuestionDetails.tags.map((tag: ITag) => tag.name)
-  const parsedMongoUser = JSON.parse(mongoUser)
+  const parsedQuestionDetails = questionDetails && JSON.parse(questionDetails || '')
+  const groupedTags = questionDetails && parsedQuestionDetails?.tags.map((tag: ITag) => tag.name)
+  const parsedMongoUser = JSON.parse(mongoUser) || ''
 
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
     defaultValues: {
-      title: parsedQuestionDetails.title || '',
-      explanation: parsedQuestionDetails.content || "",
+      title: parsedQuestionDetails?.title || '',
+      explanation: parsedQuestionDetails?.content || "",
       tags: groupedTags || [],
     },
   });
@@ -148,7 +148,7 @@ const Question = ({type, mongoUser, questionDetails}: Props) => {
                   }}
                   onBlur={field.onBlur}
                   onEditorChange={(content) => field.onChange(content)}
-                  initialValue={parsedQuestionDetails.content || ""}
+                  initialValue={parsedQuestionDetails?.content || ""}
                   init={{
                     height: 500,
                     menubar: false,
@@ -242,7 +242,7 @@ const Question = ({type, mongoUser, questionDetails}: Props) => {
           {isSubmitting ? (
             <>{type === "Edit" ? "Editing..." : "Posting..."}</>
           ) : (
-            <>{type === "Edit" ? "Edi Question" : "Ask a Question"}</>
+            <>{type === "Edit" ? "Edit Question" : "Ask a Question"}</>
           )}
         </Button>
       </form>

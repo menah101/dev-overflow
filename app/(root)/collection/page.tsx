@@ -7,13 +7,16 @@ import QuestionCard from "@/components/cards/QuestionCard";
 import { getSavedQuestions } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs";
 import { IQuestion } from "@/database/question.model";
+import { SearchParamsProps } from "@/types";
 
-const Home = async () => {
-  const {userId} = auth();
+const Home = async ({ searchParams }: SearchParamsProps) => {
+  const { userId } = auth();
 
-  if(!userId) return null;
+  if (!userId) return null;
   const result = await getSavedQuestions({
     clerkId: userId,
+    searchQuery: searchParams.q,
+    filter: searchParams.filter
   });
 
   return (
@@ -29,10 +32,7 @@ const Home = async () => {
           otherClass="flex-1"
         />
 
-        <Filter
-          filters={QuestionFilters}
-          otherClasses="min-h-[56px] sm:min-w-[170px]"
-        />
+        <Filter filters={QuestionFilters} otherClasses="min-h-[56px] sm:min-w-[170px]" />
       </div>
 
       <div className="mt-10 flex w-full flex-col gap-6">
